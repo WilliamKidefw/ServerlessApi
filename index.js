@@ -28,11 +28,41 @@ app.get('/users/:id', async(req, res) => {
   res.json({status:'success', data: {user: user}});
 });
 
+app.get('/users/speciality/:speciality', async(req, res) => {
+  const speciality = req.params.speciality;
+  const user = await getUserbySpeciality(speciality);
+  res.json({status:'success', data: {users: user}});
+});
+
+app.get('/users/gender/:gender', async(req, res) => {
+  const gender = req.params.gender;
+  const user = await getUserbyGender(gender);
+  res.json({status:'success', data: {users: user}});
+});
+
 async function getUser(id) {
   return new Promise(function(resolve, reject) {
     const sql = 'SELECT * FROM Usuario where id_usuario=?';
     getDbPool().query(sql, [id], (err, results) => {
       resolve(results[0]);
+    });
+  });
+}
+
+async function getUserbySpeciality(speciality) {
+  return new Promise(function(resolve, reject) {
+    const sql = 'SELECT * FROM Usuario where especialidad=?';
+    getDbPool().query(sql, [speciality], (err, results) => {
+      resolve(results);
+    });
+  });
+}
+
+async function getUserbyGender(gender) {
+  return new Promise(function(resolve, reject) {
+    const sql = 'SELECT * FROM Usuario where genero=?';
+    getDbPool().query(sql, [gender], (err, results) => {
+      resolve(results);
     });
   });
 }
