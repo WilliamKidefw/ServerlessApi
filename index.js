@@ -14,7 +14,7 @@ app.listen(port, () => {
 });
 
 app.get('/', async (req, res) =>  {
-    res.json({status: 'API is ready to serve ' + process.env.PORT});
+    res.json({status: 'API Clinica San Luis is ready to serve ' + process.env.PORT});
 });
 
 app.get('/users', async(req, res) => {
